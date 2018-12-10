@@ -1,0 +1,76 @@
+<app-navbar></app-navbar>
+<main role="main" class="employee">
+    <div class="container-fluid text-center">
+        <div class="row content">
+            <div class="col-sm-6 employeeinfo">
+                <h1>Employee Profile</h1>
+                <!-- <div style="border: 0px;"> -->
+                <table>
+                    <tr>
+                        <th style="border: 0px;"><span style="color: green;">EId :</span></th>
+                        <td style="border: 0px;"> {{employeeinforesult.eid}}</td>
+                    </tr>
+                    <tr>
+                        <th style="border: 0px;"> <span style="color: green;">Employee Name :</span></th>
+                        <td style="border: 0px;"> {{employeeinforesult.name}}</td>
+                    </tr>
+                    <tr>
+                        <th style="border: 0px;"><span style="color: green;">Email :</span> </th>
+                        <td style="border: 0px;">{{employeeinforesult.email}}</td>
+                    </tr>
+                    <tr>
+                        <th style="border: 0px;"><span style="color: green;">Leave Balance :</span> </th>
+                        <td style="border: 0px;">{{employeeinforesult.leavebalance}}</td>
+                    </tr>
+
+                </table>
+                <!-- </div> -->
+            </div>
+            <div class="col-sm-6 employeeoperation">
+                <h1>Employee Operation</h1>
+                <div class="row content">
+                    <ng-container>
+                        <button mat-raised-button (click)="openVerticallyCentered(LeaveApplication1)">Leave Application</button>
+                    </ng-container>
+                </div>
+                <div class="row content">
+                    <ng-container>
+                        <button mat-raised-button (click)="getEmployeeID(); openVerticallyCentered(TransferLeave1);">Transfer Leave</button>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row content">
+            <div class="col-sm-12 response">
+                <h1>Transaction Details</h1>
+            </div>
+        </div>
+    </div>
+</main>
+
+<ng-template #TransferLeave1 let-c="close" let-d="dismiss">
+    <div class="modal-header bg-primary" style="color: #fff;">
+        <h5 class="modal-title">Transfer Leave</h5>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <ng-container *ngIf="employeelist">
+        <div class="modal-body">
+            <p>Selected Employee = {{selectedData}} </p>
+            <select [(ngModel)]="selectedData" placeholder="Select Employee">
+                <option *ngFor="let employee of employeelist" value={{employee.eid}}>{{employee.name}}</option>
+            </select>
+            <ng-container *ngIf="selectedData">
+                <br>
+                <input [(ngModel)]="leaveDays" type="number" name="day" placeholder="Enter Number of day/s">
+            </ng-container>
+        </div>
+    </ng-container>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-warning col-md-6 " (click)="c('Close click')">Close</button>
+        <button type="button" class="btn btn-primary col-md-6 " (click)="TransferLeave([selectedData,leaveDays]);d('Cross click');">Submit</button>
+    </div>
+</ng-template>

@@ -1,0 +1,44 @@
+    .employee {
+        margin-top: 7rem;
+    }
+    
+    .modal-header,
+    .modal-footer {
+        padding: 0.2rem 1rem !important;
+    }
+    
+    .modal-footer button {
+        padding: 2px 10px !important;
+    }
+    /* th {
+        width: 1%;
+        white-space: nowrap;
+        text-align: -webkit-right;
+    } */
+    
+    th {
+        text-align: -webkit-right;
+    }
+    
+    h1 {
+        text-align: center;
+    }
+    
+    table {
+        table-layout: auto;
+        width: 100%;
+        border-spacing: 2px 10px;
+        border-collapse: separate;
+    }
+    
+    td {
+        text-align: -webkit-left;
+    }
+    
+    th.mat-header-cell.cdk-column-question.mat-column-question {
+        width: 50%;
+    }
+    
+    button {
+        margin: 8px 2px;
+    }

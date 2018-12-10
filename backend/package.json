@@ -1,0 +1,40 @@
+{
+    "name": "hrm",
+    "version": "0.1.0",
+    "description": "hrm backend",
+    "main": "server.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "ethereum",
+        "blokchain",
+        "solidity",
+        "truffle",
+        "nodejs",
+        "smart",
+        "contract"
+    ],
+    "dependencies": {
+        "abi-decoder": "^1.2.0",
+        "body-parser": "^1.18.3",
+        "crypto": "^1.0.1",
+        "fs": "latest",
+        "jsonwebtoken": "^8.3.0",
+        "request": "^2.88.0",
+        "truffle-contract": "^3.0.6",
+        "truffle-hdwallet-provider": "0.0.6",
+        "web3": "^0.20.1",
+        "cookie-parser": "^1.4.3",
+        "cors": "^2.8.4",
+        "debug": "^4.1.0",
+        "express": "^4.16.4",
+        "http-errors": "^1.7.1",
+        "jade": "^1.11.0",
+        "morgan": "^1.9.1",
+        "mysql": "^2.16.0",
+        "nodemon": "^1.18.5"
+    },
+    "author": "KAMAL KISHOR MEHRA",
+    "license": "ISC"
+}

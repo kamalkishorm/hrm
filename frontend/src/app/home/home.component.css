@@ -1,0 +1,11 @@
+.home {
+	margin-top: 7rem;
+}
+
+.modal-header, .modal-footer  {
+	padding: 0.2rem 1rem !important;
+}
+
+/*.modal-footer button {
+	padding: 2px 10px !important;
+}*/

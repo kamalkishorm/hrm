@@ -1,0 +1,104 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "~bootstrap/dist/css/bootstrap.min.css";
+@import "~font-awesome/css/font-awesome.min.css";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+.no-padding {
+    padding: 0px !important;
+}
+
+.no-right-padding {
+    padding-right: 0px !important;
+}
+
+.no-left-padding {
+    padding-left: 0px !important;
+}
+
+.no-top-padding {
+    padding-top: 0px !important;
+}
+
+.no-bottom-padding {
+    padding-bottom: 0px !important;
+}
+
+.padding-5 {
+    padding: 5px !important;
+}
+
+.padding-right-5 {
+    padding-right: 5px !important;
+}
+
+.padding-left-5 {
+    padding-left: 5px !important;
+}
+
+.padding-top-5 {
+    padding-top: 5px !important;
+}
+
+.padding-bottom-5 {
+    padding-bottom: 5px !important;
+}
+
+.no-margin {
+    margin: 0px !important;
+}
+
+.no-right-margin {
+    margin-right: 0px !important;
+}
+
+.no-left-margin {
+    margin-left: 0px !important;
+}
+
+.no-top-margin {
+    margin-top: 0px !important;
+}
+
+.no-bottom-margin {
+    margin-bottom: 0px !important;
+}
+
+.margin-5 {
+    margin: 5px !important;
+}
+
+.margin-right-5 {
+    margin-right: 5px !important;
+}
+
+.margin-left-5 {
+    margin-left: 5px !important;
+}
+
+.margin-top-5 {
+    margin-top: 5px !important;
+}
+
+.margin-bottom-5 {
+    margin-bottom: 5px !important;
+}
+
+.border-gray-2 {
+    border: 2px solid gray !important;
+}
+
+.border-right-gray-2 {
+    border-right: 2px solid gray !important;
+}
+
+.border-left-gray-2 {
+    border-left: 2px solid gray !important;
+}
+
+.border-top-gray-2 {
+    border-top: 2px solid gray !important;
+}
+
+.border-bottom-gray-2 {
+    border-bottom: 2px solid gray !important;
+}

@@ -1,0 +1,45 @@
+.admin {
+    margin-top: 7rem;
+}
+
+.modal-header,
+.modal-footer {
+    padding: 0.2rem 1rem !important;
+}
+
+.modal-footer button {
+    padding: 2px 10px !important;
+}
+
+th {
+    width: 1%;
+    white-space: nowrap;
+}
+
+table {
+    table-layout: auto;
+    width: 100%;
+    border-spacing: 2px 10px;
+    border-collapse: separate;
+}
+
+th.mat-header-cell.cdk-column-question.mat-column-question {
+    width: 50%;
+}
+
+button.mat-raised-button {
+    margin: 8px 2px;
+}
+
+div#sidenavbutton {
+    padding-left: 35px;
+}
+
+.newemployee-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.newemployee-form>* {
+    width: 100%;
+}
