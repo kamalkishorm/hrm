@@ -84,115 +84,33 @@ export class EmployeeComponent implements OnInit {
                         };
             this.hrmservice.transferleave(formdata).then(
                 data => {
-                                    console.log(data);
                                     // this.employeeinforesult = data[0][0];
-                                    window.location.reload();
+                                    // window.location.reload();
+                                    console.log(data);
+                                    document.getElementById('tx_response').innerHTML = JSON.stringify(data);
+
                                 },
                                 error => {
                                     const errorResponse = error.json();
-                                    window.location.reload();
+                                    // window.location.reload();
                                 }
             );
         }
-        alert(JSON.stringify(selectedItem));
     }
-    // changeView(viewData) {
-    //     if (viewData === 'result') {
-    //         // this.getemployeeResult(localStorage.getItem('id'));
-    //         this.showInfo = true;
-    //         this.showTest = false;
-    //         // console.log(localStorage.getItem('eid'));
-    //         // const formdata = {
-    //         //     'eid': localStorage.getItem('eid')
-    //         // };
-    //         // // this.employeeinforesult = {'eid': '100'};
-    //         // this.hrmservice.getemployeeinfo(formdata).then(
-    //         //     data => {
-    //         //         console.log(data[0]);
-    //         //         this.employeeinforesult = data[0][0];
-    //         //     },
-    //         //     error => {
-    //         //         const errorResponse = error.json();
+    RequestLeave(days) {
+        const formdata = {
+            'eid': localStorage.getItem('eid'),
+            'days': days + ''
+        };
+        this.hrmservice.requesteleave(formdata).then(
+            data => {
+                console.log(data);
 
-    //         //     }
-    //         // );
-    //       } else if (viewData === 'taketest') {
-    //           this.takeTest();
-    //           this.showInfo = false;
-    //           this.showTest = true;
-    //     }
-    // }
-    // getemployeeResult(id) {
-    //     console.log(id);
-    //     const formdata = {
-    //         'id': id
-    //     };
-    //     document.getElementById('employeeresult').innerHTML = 'verified';
-    //     // this.hrmservice.getresult(formdata).then(
-    //     //     data => {
-    //     //         console.log(data);
-    //     //         if (data[1]) {
-    //     //             document.getElementById('employeeresult').innerHTML = data[0];
-    //     //         } else {
-    //     //             document.getElementById('employeeresult').innerHTML = 'Test not given yet!!!';
-    //     //         }
-    //     //     },
-    //     //     error => {
-    //     //         const errorResponse = error.json();
-    //     //     });
-    // }
-    // takeTest() {
-    //     alert('take test');
-    //     // this.hrmservice.taketest().then(
-    //     //     data => {
-    //     //         this.qandalist = data;
-    //     //         console.log(data);
-    //     //         const arrayData = [];
-    //     //         for (const k of Object.keys( data)) {
-    //     //             arrayData.push({
-    //     //                 'id': Number(data[k].id),
-    //     //                 'answer': data[k].answer
-    //     //                 });
-    //     //          }
-    //     //         this.answer = arrayData;
-    //     //         console.log(this.answer);
-    //     //     },
-    //     //     error => {
-    //     //         console.log(error);
-    //     //         const errorResponse = error.json();
-    //     //     });
-    // }
-    // checkAnswer() {
-    //     let score = 0;
-    //     for (const k of Object.keys(this.answer)) {
-    //         const name = 'answer' + this.answer[k].id ;
-    //         const data = document.getElementsByName(name);
-    //         for (let i = 0 ; i < 4; i++) {
-    //             if ((<HTMLInputElement>data[i]).checked && this.answer[k].answer === (i + 1)) {
-    //                 score += 1;
-    //             }
-    //         }
-    //     }
-    //     const formdata = {
-    //         'id': localStorage.getItem('id'),
-    //         'score': score
-    //     };
-    //     alert('test submitted');
-    //     // this.hrmservice.submittest(formdata).then(
-    //     //     data => {
-    //     //         this.transaction = data;
-    //     //         console.log(data);
-    //     //         if (data['tx']) {
-    //     //             window.location.reload();
-    //     // alert(score);
-
-    //     //         } else {
-    //     //             console.error(data);
-    //     //         }
-    //     //     },
-    //     //     error => {
-    //     //         console.log(error);
-    //     //         const errorResponse = error.json();
-    //     //     });
-    // }
+            },
+            error => {
+                const errorResponse = error.json();
+                // window.location.reload();
+            }
+        );
+    }
 }

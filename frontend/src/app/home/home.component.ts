@@ -9,7 +9,7 @@ import { Router, RouterModule } from '@angular/router';
     styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-    id: any;
+    eid: any;
     password: any;
     uname: any;
     email: any;
@@ -33,17 +33,19 @@ export class HomeComponent implements OnInit {
     openVerticallyCentered(content) {
         this.modalService.open(content, { centered: true });
     }
-    UserLogin() {
-        localStorage.setItem('eid', this.id);
+    employeeLogin() {
+        localStorage.setItem('eid', this.eid);
         const formdata = {
-            'eid': this.id,
+            'eid': this.eid,
             'password': this.password
         };
         this.hrmservice.employeelogin(formdata).then(
             data => {
                 console.log(data);
                 if (data['token']) {
+                    window.location.reload();
                     localStorage.setItem('token', data['token']);
+                    localStorage.setItem('id', formdata.eid);
                     this.routerurl = '/employee';
                     this.router.navigate([this.routerurl]);
                 }
@@ -54,16 +56,15 @@ export class HomeComponent implements OnInit {
     }
 
     AdminLogin() {
-        localStorage.setItem('id', this.id);
         const formdata = {
-            'eid': this.id,
+            'eid': this.eid,
             'password': this.password
         };
         this.hrmservice.adminlogin(formdata).then(
             data => {
                 console.log(data);
                 if (data['token']) {
-                    localStorage.setItem('token', data['token']);
+                    localStorage.setItem('admin', data['token']);
                     this.routerurl = '/admin';
                     this.router.navigate([this.routerurl]);
                 }

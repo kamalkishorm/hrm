@@ -133,36 +133,34 @@ export class NavbarComponent implements OnInit {
             'password': this.password
         };
         this.routerurl = '/admin';
-        this.router.navigate([this.routerurl]);
-        // this.hrmservice.adminlogin(formdata).then(
-        //     data => {
-        //         console.log(data);
-        //         if (data['token']) {
-        //             localStorage.setItem('token', data['token']);
-        //             localStorage.setItem('id', formdata.id);
-        //             this.routerurl = '/admin';
-        //             this.router.navigate([this.routerurl]);
-        //         }
-        //     },
-        //     error => {
-        //         console.log(error);
-        //     });
-    }
-    RegisterEmployee() {
-        const formdata = {
-            'eid': this.uname
-        };
-        this.hrmservice.addnewemployee(formdata).then(
+        this.hrmservice.adminlogin(formdata).then(
             data => {
-                // if (data['error'] === 0) {
-                    alert(data);
-                    // this.routerurl = '/';
-                    // this.router.navigate([this.routerurl]);
-                    window.location.reload();
-                // }
+                console.log(data);
+                if (data['token']) {
+                    localStorage.setItem('admin', data['token']);
+                    this.routerurl = '/admin';
+                    this.router.navigate([this.routerurl]);
+                }
             },
             error => {
                 console.log(error);
             });
     }
+    // RegisterEmployee() {
+    //     const formdata = {
+    //         'eid': this.uname
+    //     };
+    //     this.hrmservice.addnewemployee(formdata).then(
+    //         data => {
+    //             // if (data['error'] === 0) {
+    //                 alert(data);
+    //                 // this.routerurl = '/';
+    //                 // this.router.navigate([this.routerurl]);
+    //                 window.location.reload();
+    //             // }
+    //         },
+    //         error => {
+    //             console.log(error);
+    //         });
+    // }
 }

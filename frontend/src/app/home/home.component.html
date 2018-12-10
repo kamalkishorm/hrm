@@ -5,9 +5,9 @@
             <div class="mx-auto">
                 <div class="card-deck">
                     <div class="card text-white bg-primary mr-3" style="width: 15rem;">
-                        <div class="card-header">User</div>
+                        <div class="card-header">Employee</div>
                         <div class="card-body">
-                            <button class="btn btn-light" (click)="openVerticallyCentered(UserLogin1)">Go to User</button>
+                            <button class="btn btn-light" (click)="openVerticallyCentered(EmployeeLogin1)">Go to Employee</button>
                         </div>
                     </div>
                     <div class="card text-white bg-info mr-3" style="width: 15rem;">
@@ -23,19 +23,19 @@
 </main>
 
 
-<ng-template #UserLogin1 let-c="close" let-d="dismiss">
-    <div class="modal-header bg-primary" style="color: #fff;">
-        <h5 class="modal-title">Login to User</h5>
+<ng-template #AdminLogin1 let-c="close" let-d="dismiss">
+    <div class="modal-header bg-info" style="color: #fff;">
+        <h5 class="modal-title">Login to Admin</h5>
         <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-    <span aria-hidden="true">&times;</span>
-  </button>
+            <span aria-hidden="true">&times;</span>
+            </button>
     </div>
     <div class="modal-body">
         <form>
             <div class="form-row">
                 <div class="form-group col-md-12">
-                    <label for="id">User ID</label>
-                    <input type="text" class="form-control" name="id" id="id" [(ngModel)]="id" placeholder="User ID">
+                    <label for="id">Admin ID</label>
+                    <input type="text" class="form-control" name="eid" id="eid" [(ngModel)]="eid" placeholder="Admin ID">
                 </div>
             </div>
             <div class="form-row">
@@ -46,14 +46,71 @@
             </div>
         </form>
     </div>
-    <div style="text-align: center">
-        <button class="btn btn-light" style="cursor: pointer;" (click)="openVerticallyCentered(UserRegister1)">New User Registration</button>
-    </div>
-    <br>
-
     <div class="modal-footer">
         <button type="button" class="btn btn-warning col-md-6 " (click)="c('Close click')">Close</button>
-        <button type="button" class="btn btn-primary col-md-6 " (click)="UserLogin();d('Cross click');">Submit</button>
+        <button type="button" class="btn btn-primary col-md-6 " (click)="AdminLogin();d('Cross click');">Submit</button>
+    </div>
+</ng-template>
+
+<ng-template #EmployeeLogin1 let-c="close" let-d="dismiss">
+    <div class="modal-header bg-primary" style="color: #fff;">
+        <h5 class="modal-title">Login to employee</h5>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="eid">Employee ID</label>
+                    <input type="text" class="form-control" name="eid" id="eid" [(ngModel)]="eid" placeholder="Employee ID">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" name="password" id="password" [(ngModel)]="password" placeholder="Password">
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- <div style="text-align: center">
+        <button class="btn btn-light" style="cursor: pointer;" (click)="openVerticallyCentered(employeeRegister1)">New employee Registration</button>
+    </div>
+    <br> -->
+    <div class="modal-footer">
+        <button type="button" class="btn btn-warning col-md-6 " (click)="c('Close click')">Close</button>
+        <button type="button" class="btn btn-primary col-md-6 " (click)="employeeLogin();d('Cross click');">Submit</button>
+    </div>
+</ng-template>
+
+<!-- <ng-template #EmployeeLogin1 let-c="close" let-d="dismiss">
+    <div class="modal-header bg-primary" style="color: #fff;">
+        <h5 class="modal-title">Login to Employee</h5>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="id">Employee ID</label>
+                    <input type="text" class="form-control" name="id" id="id" [(ngModel)]="id" placeholder="Employee ID">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" name="password" id="password" [(ngModel)]="password" placeholder="Password">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-warning col-md-6 " (click)="c('Close click')">Close</button>
+        <button type="button" class="btn btn-primary col-md-6 " (click)="EmployeeLogin();d('Cross click');">Submit</button>
     </div>
 </ng-template>
 
@@ -84,39 +141,4 @@
         <button type="button" class="btn btn-warning col-md-6 " (click)="c('Close click')">Close</button>
         <button type="button" class="btn btn-primary col-md-6 " (click)="AdminLogin(); d('Cross click');">Submit</button>
     </div>
-</ng-template>
-
-<ng-template #UserRegister1 let-c="close" let-d="dismiss">
-    <div class="modal-header bg-info" style="color: #fff;">
-        <h5 class="modal-title">Register User</h5>
-        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-    <span aria-hidden="true">&times;</span>
-  </button>
-    </div>
-    <div class="modal-body">
-        <form>
-            <div class="form-row">
-                <div class="form-group col-md-12">
-                    <label for="uname">User Name</label>
-                    <input type="text" class="form-control" name="uname" id="uname" [(ngModel)]="uname" placeholder="User Name(uname)">
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-12">
-                    <label for="email">Email</label>
-                    <input type="email" class="form-control" name="email" id="email" [(ngModel)]="email" placeholder="Email Address">
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-12">
-                    <label for="password">Password</label>
-                    <input type="text" class="form-control" name="password" id="password" [(ngModel)]="password" placeholder="Password">
-                </div>
-            </div>
-        </form>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-warning col-md-6 " (click)="c('Close click')">Close</button>
-        <button type="button" class="btn btn-primary col-md-6 " (click)="RegisterUser();d('Cross click');">Submit</button>
-    </div>
-</ng-template>
+</ng-template> -->

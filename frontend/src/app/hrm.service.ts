@@ -84,7 +84,7 @@ export class HrmService {
     approveleave(payload) {
       this.showLoader();
       return new Promise((resolve, reject) => {
-          return this.http.get(Configration.adminurl + 'approveLeave')
+          return this.http.post(Configration.adminurl + 'approveLeave', payload)
               .subscribe((success: any) => {
                   this.hideLoader();
                   return resolve(success.json());
@@ -94,6 +94,20 @@ export class HrmService {
               });
       });
     }
+
+    revokeleave(payload) {
+        this.showLoader();
+        return new Promise((resolve, reject) => {
+            return this.http.post(Configration.adminurl + 'revokeRequest', payload)
+                .subscribe((success: any) => {
+                    this.hideLoader();
+                    return resolve(success.json());
+                }, (error) => {
+                    console.log(error);
+                    this.hideLoader();
+                });
+        });
+      }
 /******************************************* Employee ***********************************************/
     employeelogin(payload) {
         this.showLoader();
@@ -165,4 +179,30 @@ export class HrmService {
       });
     }
 
+    requesteleave(payload) {
+      this.showLoader();
+      return new Promise((resolve, reject) => {
+          return this.http.post(Configration.adminurl + 'requestLeave', payload)
+              .subscribe((success: any) => {
+                  this.hideLoader();
+                  return resolve(success.json());
+              }, (error) => {
+                  this.hideLoader();
+                  console.log(error);
+              });
+      });
+    }
+    getleaverequests() {
+      this.showLoader();
+      return new Promise((resolve, reject) => {
+          return this.http.get(Configration.adminurl + 'getleaverequests')
+              .subscribe((success: any) => {
+                  this.hideLoader();
+                  return resolve(success.json());
+              }, (error) => {
+                  this.hideLoader();
+                  console.log(error);
+              });
+        });
+    }
 }

@@ -15,10 +15,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class AdminComponent implements OnInit {
     employeeinfo: any;
     registerForm: any;
+    leaverequests: any;
     submitted = false;
     $scope: any;
     public showemployee: boolean = false;
     public showemployeeForm: boolean = false;
+    public showleaverequests: boolean = false;
     public adminshow: boolean = true;
     constructor(
         private modalService: NgbModal,
@@ -28,6 +30,7 @@ export class AdminComponent implements OnInit {
     ) {
     }
     employeeDisplayedColumns: string[] = ['eid', 'name', 'email', 'remainingleave', 'getdetails', 'leaveday', 'addleave' ];
+    employeeLeaveRequestColumns: string[] = ['rid', 'eid', 'days', 'approve', 'revoke' ];
 
     ngOnInit() {
     }
@@ -44,11 +47,13 @@ export class AdminComponent implements OnInit {
             this.adminshow = true ;
             this.showemployee = false;
             this.showemployeeForm = false;
+            this.showleaverequests = false;
           } else if (viewData === 'employeelist') {
             this.getEmployeeList();
             this.adminshow = false;
             this.showemployee = true;
             this.showemployeeForm = false;
+            this.showleaverequests = false;
           } else if (viewData === 'newemployee') {
             this.registerForm = this.formBuilder.group({
                 eid: ['', Validators.required],
@@ -59,13 +64,38 @@ export class AdminComponent implements OnInit {
               this.adminshow = false;
               this.showemployee = false;
               this.showemployeeForm = true;
-        }
+              this.showleaverequests = false;
+          } else if (viewData === 'leaverequests') {
+            this.getleaverequests();
+            this.adminshow = false;
+            this.showemployee = false;
+            this.showemployeeForm = false;
+            this.showleaverequests = true;
+          }
     }
     getEmployeeList() {
         this.hrmservice.getemployeelist().then(
             data => {
                 console.log(data);
                 this.employeeinfo = data['data'];
+            },
+            error => {
+                console.log(error);
+                const errorResponse = error.json();
+            });
+    }
+
+    getleaverequests() {
+        this.hrmservice.getleaverequests().then(
+            data => {
+                this.leaverequests = [];
+                console.log(data);
+                data['data'].forEach(element => {
+                    if (element.approve == null && element.revoket == null) {
+                        this.leaverequests.push(element);
+                    }
+                });
+                // this.leaverequests = data['data'];
             },
             error => {
                 console.log(error);
@@ -137,6 +167,35 @@ console.log(this.registerForm.value);
                 const errorResponse = error;
                 console.error(error);
             });
-
+    }
+    approverequest(requestdetails) {
+        const formdata = {
+            'eid': requestdetails.eid,
+            'days': requestdetails.day,
+            'rid': requestdetails.rid
+        };
+        console.log(formdata);
+        this.hrmservice.approveleave(formdata).then(
+            data => {
+                console.log(data);
+            },
+            error => {
+                console.log(error);
+            }
+        );
+    }
+    revokerequest(requestdetails) {
+        const formdata = {
+            'rid': requestdetails.rid
+        };
+        console.log(formdata);
+        this.hrmservice.revokeleave(formdata).then(
+            data => {
+                console.log(data);
+            },
+            error => {
+                console.log(error);
+            }
+        );
     }
 }

@@ -83,10 +83,16 @@ function watchEvents() {
     });
 }
 
-
-function employeeLeaveUpdate() {
-
+function twoDigits(d) {
+    if (0 <= d && d < 10) return "0" + d.toString();
+    if (-10 < d && d < 0) return "-0" + (-1 * d).toString();
+    return d.toString();
 }
+
+Date.prototype.toMysqlFormat = function() {
+    return this.getUTCFullYear() + "-" + twoDigits(1 + this.getUTCMonth()) + "-" + twoDigits(this.getUTCDate()) + " " + twoDigits(this.getUTCHours()) + ":" + twoDigits(this.getUTCMinutes()) + ":" + twoDigits(this.getUTCSeconds());
+};
+
 /******************************************* API ***********************************************/
 app.get('/', function(req, res) {
     console.log('get called');
@@ -160,6 +166,61 @@ app.get('/getEmployeeList', function(req, res) {
         });
 });
 
+app.get('/getleaverequests', function(req, res) {
+    con.query(
+        'SELECT * FROM leaveRequests',
+        function(err, results, fields) {
+            if (err) {
+                console.error(err);
+                res.status(500).send({ 'Output': 'Failure', 'error': err.message });
+            } else {
+                console.log(results);
+                res.send({ 'Output': 'Success', 'data': results });
+            }
+        });
+});
+app.post('/requestLeave', function(req, res) {
+    var now = (new Date()).toMysqlFormat();
+    console.log(now);
+    con.query(
+        "INSERT INTO leaveRequests(eid,request,day) VALUES ('" + req.body.eid + "','" + now + "','" + req.body.days + "')",
+        function(err, result) {
+            if (err) {
+                console.error(err);
+                res.status(500).send(JSON.stringify(err.message));
+            } else {
+                console.log(result);
+                con.query(
+                    "Select rid from leaveRequests where request='" + now + "'",
+                    function(err, result2) {
+                        if (err) {
+                            console.error(err);
+                            res.status(500).send(result).end();
+                        } else {
+                            console.log(result2);
+                            res.send(result2).end();
+                        }
+                    });
+            }
+        }
+    )
+});
+
+app.post('/revokeRequest', function(req, res) {
+    var now = (new Date()).toMysqlFormat();
+    con.query(
+        "UPDATE leaveRequests SET revoket='" + now + "' where rid='" + req.body.rid + "'",
+        function(err, result) {
+            if (err) {
+                console.error(err);
+                res.status(500).send(JSON.stringify(err.message));
+            } else {
+                console.log(result);
+                res.send(result).end();
+            }
+        }
+    );
+});
 /******************************************* Blockchain ***********************************************/
 
 app.get('/getAccountBalance', function(req, res) {
@@ -257,7 +318,16 @@ app.post('/addLeave', function(req, res) {
     }).then(function(instance) {
         instance.addLeave(req.body.eid, req.body.days * 10).then(function(rst) {
             console.log(rst);
-            res.json(rst).end();
+            con.query(
+                "INSERT INTO transferLeave (eid,transactiontype,day) VALUES ('" + req.body.eid + "','compensation','" + req.body.days + "')",
+                function(err, result, fields) {
+                    if (err) {
+                        console.error(err);
+                        res.status(500).send(JSON.stringify(err.message));
+                    } else {
+                        res.json(rst).end();
+                    }
+                });
         }).catch(e => {
             console.log(e);
             res.status(400).json(e).end();
@@ -292,12 +362,25 @@ app.post('/requestLeave', function(req, res) {
 });
 
 app.post('/approveLeave', function(req, res) {
+    console.log(req);
+    var now = (new Date()).toMysqlFormat();
     hrmContract.deployed().then(function(instance) {
         return instance;
     }).then(function(instance) {
         instance.approveLeave(req.body.eid, req.body.days * 10).then(function(rst) {
             console.log(rst);
-            res.json(rst).end();
+            con.query(
+                "UPDATE leaveRequests SET approve='" + now + "', transactionhash='" + rst.tx + "' where rid='" + req.body.rid + "'",
+                function(err, result) {
+                    if (err) {
+                        console.error(err);
+                        res.status(500).send(JSON.stringify(err.message));
+                    } else {
+                        console.log(result);
+                        res.send(rst).end();
+                    }
+                }
+            );
         }).catch(e => {
             console.log(e);
             res.send(e.message).end();
@@ -311,7 +394,16 @@ app.post('/transferLeave', function(req, res) {
     }).then(function(instance) {
         instance.transferLeave(req.body.from, req.body.to, req.body.days * 10).then(function(rst) {
             console.log(rst);
-            res.json(rst).end();
+            con.query(
+                "INSERT INTO transferLeave VALUES ('" + req.body.from + "','" + rst.tx + "','transfer','" + req.body.days + "','" + req.body.to + "')",
+                function(err, result, fields) {
+                    if (err) {
+                        console.error(err);
+                        res.status(500).send(JSON.stringify(err.message));
+                    } else {
+                        res.json(rst).end();
+                    }
+                });
         }).catch(e => {
             console.log(e);
             res.send(e.message).end();

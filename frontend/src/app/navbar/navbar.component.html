@@ -1,6 +1,6 @@
 <!-- Image and text -->
 <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-info" style="background-color: #e3f2fd;">
-    <a class="navbar-brand" routerLink="/">Quiz</a>
+    <a class="navbar-brand" routerLink="/">HRM: Leave Management System</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleCollapse()">
   <span class="navbar-toggler-icon"></span>
 </button>
@@ -43,13 +43,13 @@
             <div class="form-row">
                 <div class="form-group col-md-12">
                     <label for="id">Admin ID</label>
-                    <input type="text" class="form-control" name="id" id="id" [(ngModel)]="id" placeholder="Admin ID">
+                    <input type="text" class="form-control" name="eid" id="eid" [(ngModel)]="eid" placeholder="Admin ID">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-12">
                     <label for="password">Password</label>
-                    <input type="text" class="form-control" name="password" id="password" [(ngModel)]="password" placeholder="Password">
+                    <input type="password" class="form-control" name="password" id="password" [(ngModel)]="password" placeholder="Password">
                 </div>
             </div>
         </form>
