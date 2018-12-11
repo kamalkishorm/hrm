@@ -135,5 +135,14 @@
                 </ng-container>
             </div>
         </div>
+        <br/>
+        <div class="row content">
+            <div class="col-sm-12">
+                <ng-container *ngIf="transaction_response">
+                    <h1>Transaction Details</h1>
+                    <pre style=" width: -webkit-fill-available; height: -webkit-fill-available; " id="tx_response" [innerHTML]="datavalue"></pre>
+                </ng-container>
+            </div>
+        </div>
     </div>
 </main>

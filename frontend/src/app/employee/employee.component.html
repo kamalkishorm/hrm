@@ -43,61 +43,65 @@
         <hr>
         <div class="row content">
             <div class="col-sm-12">
-                <h1>Transaction Details</h1>
-                <p id="tx_response"></p>
+                <ng-container *ngIf="transaction_response">
+                    <h1>Transaction Details</h1>
+                    <pre style=" width: -webkit-fill-available; height: -webkit-fill-available; " id="tx_response" [innerHTML]="datavalue"></pre>
+                    <!-- <div id="tx_response "></div> -->
+                </ng-container>
+
             </div>
         </div>
     </div>
 </main>
 
-<ng-template #RequestLeave1 let-c="close" let-d="dismiss">
-    <div class="modal-header bg-primary" style="color: #fff;">
-        <h5 class="modal-title">Request Leave</h5>
-        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-        <span aria-hidden="true">&times;</span>
+<ng-template #RequestLeave1 let-c="close " let-d="dismiss ">
+    <div class="modal-header bg-primary " style="color: #fff; ">
+        <h5 class="modal-title ">Request Leave</h5>
+        <button type="button " class="close " aria-label="Close " (click)="d( 'Cross click') ">
+        <span aria-hidden="true ">&times;</span>
       </button>
     </div>
 
     <ng-container>
-        <div class="modal-body">
+        <div class="modal-body ">
             <ng-container>
-                <input [(ngModel)]="days" type="number" name="day" placeholder="Enter Number of day/s">
+                <input [(ngModel)]="days " type="number " name="day " placeholder="Enter Number of day/s ">
             </ng-container>
         </div>
     </ng-container>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-warning col-md-6 " (click)="c('Close click')">Close</button>
-        <button type="button" class="btn btn-primary col-md-6 " (click)="RequestLeave(days);d('Cross click');">Submit</button>
+    <div class="modal-footer ">
+        <button type="button " class="btn btn-warning col-md-6 " (click)="c( 'Close click') ">Close</button>
+        <button type="button " class="btn btn-primary col-md-6 " (click)="RequestLeave(days);d( 'Cross click'); ">Submit</button>
     </div>
 </ng-template>
 
-<ng-template #TransferLeave1 let-c="close" let-d="dismiss">
-    <div class="modal-header bg-primary" style="color: #fff;">
-        <h5 class="modal-title">Transfer Leave</h5>
-        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-        <span aria-hidden="true">&times;</span>
+<ng-template #TransferLeave1 let-c="close " let-d="dismiss ">
+    <div class="modal-header bg-primary " style="color: #fff; ">
+        <h5 class="modal-title ">Transfer Leave</h5>
+        <button type="button " class="close " aria-label="Close " (click)="d( 'Cross click') ">
+        <span aria-hidden="true ">&times;</span>
       </button>
     </div>
 
-    <ng-container *ngIf="employeelist">
-        <div class="modal-body">
-            <ng-container *ngIf="!selectedData">
+    <ng-container *ngIf="employeelist ">
+        <div class="modal-body ">
+            <ng-container *ngIf="!selectedData ">
                 <p> Select Employee</p>
             </ng-container>
-            <ng-container *ngIf="selectedData">
+            <ng-container *ngIf="selectedData ">
                 <p>Selected Employee = {{selectedData}} </p>
             </ng-container>
-            <select [(ngModel)]="selectedData" placeholder="Select Employee">
-                <option *ngFor="let employee of employeelist" value={{employee.eid}}>{{employee.name}}</option>
+            <select [(ngModel)]="selectedData " placeholder="Select Employee ">
+                <option *ngFor="let employee of employeelist " value={{employee.eid}}>{{employee.name}}</option>
             </select>
-            <ng-container *ngIf="selectedData">
+            <ng-container *ngIf="selectedData ">
                 <br>
-                <input [(ngModel)]="leaveDays" type="number" name="day" placeholder="Enter Number of day/s">
+                <input [(ngModel)]="leaveDays " type="number " name="day " placeholder="Enter Number of day/s ">
             </ng-container>
         </div>
     </ng-container>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-warning col-md-6 " (click)="c('Close click')">Close</button>
-        <button type="button" class="btn btn-primary col-md-6 " (click)="TransferLeave([selectedData,leaveDays]);d('Cross click');">Submit</button>
+    <div class="modal-footer ">
+        <button type="button " class="btn btn-warning col-md-6 " (click)="c( 'Close click') ">Close</button>
+        <button type="button " class="btn btn-primary col-md-6 " (click)="TransferLeave([selectedData,leaveDays]);d( 'Cross click'); ">Submit</button>
     </div>
 </ng-template>

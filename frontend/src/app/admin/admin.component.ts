@@ -17,11 +17,14 @@ export class AdminComponent implements OnInit {
     registerForm: any;
     leaverequests: any;
     submitted = false;
+    public datavalue;
+
     $scope: any;
     public showemployee: boolean = false;
     public showemployeeForm: boolean = false;
     public showleaverequests: boolean = false;
     public adminshow: boolean = true;
+    public transaction_response: boolean = false;
     constructor(
         private modalService: NgbModal,
         private router: Router,
@@ -48,12 +51,14 @@ export class AdminComponent implements OnInit {
             this.showemployee = false;
             this.showemployeeForm = false;
             this.showleaverequests = false;
+            this.transaction_response = false;
           } else if (viewData === 'employeelist') {
             this.getEmployeeList();
             this.adminshow = false;
             this.showemployee = true;
             this.showemployeeForm = false;
             this.showleaverequests = false;
+            this.transaction_response = false;
           } else if (viewData === 'newemployee') {
             this.registerForm = this.formBuilder.group({
                 eid: ['', Validators.required],
@@ -65,12 +70,14 @@ export class AdminComponent implements OnInit {
               this.showemployee = false;
               this.showemployeeForm = true;
               this.showleaverequests = false;
+              this.transaction_response = false;
           } else if (viewData === 'leaverequests') {
             this.getleaverequests();
             this.adminshow = false;
             this.showemployee = false;
             this.showemployeeForm = false;
             this.showleaverequests = true;
+            this.transaction_response = false;
           }
     }
     getEmployeeList() {
@@ -124,11 +131,15 @@ export class AdminComponent implements OnInit {
         if (this.registerForm.invalid) {
             return;
         }
-console.log(this.registerForm.value);
-        alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.registerForm.value));
+        console.log(this.registerForm.value);
+        // alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.registerForm.value));
         this.hrmservice.addnewemployee(this.registerForm.value).then(
             data => {
                 console.log(data);
+                this.transaction_response = true;
+                this.datavalue =   this.syntaxHighlight(data);
+
+                // document.body.appendChild(document.createElement('pre')).innerHTML = this.syntaxHighlight(data);
             },
             error => {
                 console.error(error);
@@ -162,6 +173,9 @@ console.log(this.registerForm.value);
         this.hrmservice.addleave(formdata).then(
             data => {
                 console.log(data);
+                this.transaction_response = true;
+                this.datavalue =   this.syntaxHighlight(data);
+                // document.body.appendChild(document.createElement('pre')).innerHTML = this.syntaxHighlight(data);
             },
             error => {
                 const errorResponse = error;
@@ -178,6 +192,10 @@ console.log(this.registerForm.value);
         this.hrmservice.approveleave(formdata).then(
             data => {
                 console.log(data);
+                this.transaction_response = true;
+                this.datavalue =   this.syntaxHighlight(data);
+                // document.body.appendChild(document.createElement('pre')).innerHTML = this.syntaxHighlight(data);
+                this.getleaverequests();
             },
             error => {
                 console.log(error);
@@ -192,10 +210,32 @@ console.log(this.registerForm.value);
         this.hrmservice.revokeleave(formdata).then(
             data => {
                 console.log(data);
+                this.getleaverequests();
             },
             error => {
                 console.log(error);
             }
         );
+    }
+    syntaxHighlight(json) {
+        if (typeof json !== 'string') {
+             json = JSON.stringify(json, undefined, 2);
+        }
+        json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+            var cls = 'number';
+            if (/^"/.test(match)) {
+                if (/:$/.test(match)) {
+                    cls = 'key';
+                } else {
+                    cls = 'string';
+                }
+            } else if (/true|false/.test(match)) {
+                cls = 'boolean';
+            } else if (/null/.test(match)) {
+                cls = 'null';
+            }
+            return '<span class="' + cls + '">' + match + '</span>';
+        });
     }
 }
